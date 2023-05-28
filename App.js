@@ -1,11 +1,22 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import React, { useState } from "react";
+import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
+
+const torchOffImage = require("./assets/torch_off.jpg");
+const torchOnImage = require("./assets/torch_on.jpg");
 
 export default function App() {
+  const [isOn, setIsOn] = useState(false);
+
+  const onScreenClick = () => {
+    setIsOn(!isOn);
+  };
+
+  const src = isOn ? torchOnImage : torchOffImage;
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View style={[styles.container]}>
+      <Image source={src} />
+      <TouchableOpacity style={styles.button} onPress={onScreenClick} />
     </View>
   );
 }
@@ -13,8 +24,14 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#000",
+  },
+  button: {
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+    borderRadius: 100,
   },
 });
